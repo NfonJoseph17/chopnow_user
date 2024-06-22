@@ -8,14 +8,14 @@ const addressesList = [
     {
         id: '1',
         addressType: 'Home',
-        address: '444, Grove Avenue, Golden Tower Near City Part, Washington DC,United States Of America',
-        mobileNo: '+19 1234567890',
+        address: 'Standard Lodge, Room 24 Bambili',
+        mobileNo: '+237 676858216',
     },
     {
         id: '2',
         addressType: 'Office',
-        address: 'B441, Old city town, Leminton street Near City Part, Washington DC,United States Of America',
-        mobileNo: '+19 1234567890',
+        address: 'Shed 53, katika Junction, Bambili',
+        mobileNo: '+237 676858216',
     },
 ];
 
@@ -54,7 +54,7 @@ const SelectDeliveryAddressScreen = ({ navigation }) => {
                 style={styles.proceedToCheckoutButtonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor18Bold }}>
-                    Proceed To Checkout
+                    Proceed To Payment
                 </Text>
             </TouchableOpacity>
         )
@@ -67,7 +67,7 @@ const SelectDeliveryAddressScreen = ({ navigation }) => {
                     Amount Payable
                 </Text>
                 <Text style={{ ...Fonts.blackColor18SemiBold }}>
-                    $32.00
+                    4500.00 XAF
                 </Text>
             </View>
         )

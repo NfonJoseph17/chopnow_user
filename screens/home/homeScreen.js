@@ -41,94 +41,40 @@ const bannersList = [
   },
 ];
 
-const foodCategoriesList = [
-  {
-    id: "1",
-    category: "Fast Food",
-    foodImage: require("../../assets/images/food/food3.png"),
-  },
-  {
-    id: "2",
-    category: "South Indian",
-    foodImage: require("../../assets/images/food/food4.png"),
-  },
-  {
-    id: "3",
-    category: "Chinese",
-    foodImage: require("../../assets/images/food/food5.png"),
-  },
-  {
-    id: "4",
-    category: "Diet Food",
-    foodImage: require("../../assets/images/food/food6.png"),
-  },
-  {
-    id: "5",
-    category: "Italian",
-    foodImage: require("../../assets/images/food/food7.png"),
-  },
-  {
-    id: "6",
-    category: "Sea Food",
-    foodImage: require("../../assets/images/food/food8.png"),
-  },
-  {
-    id: "7",
-    category: "Ice Cream",
-    foodImage: require("../../assets/images/food/food9.png"),
-  },
-  {
-    id: "8",
-    category: "Dessert",
-    foodImage: require("../../assets/images/food/food10.png"),
-  },
-];
-
-const offersBannersList = [
-  {
-    id: "o1",
-    bannerImage: require("../../assets/images/offer_banner/Offer1.png"),
-  },
-  {
-    id: "o2",
-    bannerImage: require("../../assets/images/offer_banner/Offer2.png"),
-  },
-];
-
 const nearByRestaurantsList = [
   {
     id: "1",
-    restaurantName: "Marine Rise Restaurant",
-    ratedPeopleCount: 198,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantName: "Legacy Restaurant",
+    ratedPeopleCount: 8,
+    restaurantAddress: "ENS Street, Bambili",
     rating: 4.3,
   },
   {
     id: "2",
-    restaurantName: "Sliver Leaf Restaurant",
-    ratedPeopleCount: 170,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantName: "Las Vegas complext Restaurant",
+    ratedPeopleCount: 18,
+    restaurantAddress: "3-Conners, Bambili",
     rating: 4.0,
   },
   {
     id: "3",
-    restaurantName: "Johson Foods",
-    ratedPeopleCount: 130,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantName: "Pluto Restaurant",
+    ratedPeopleCount: 10,
+    restaurantAddress: "ENS Street, Bambili",
     rating: 3.5,
   },
   {
     id: "4",
-    restaurantName: "Lepord Cafe",
-    ratedPeopleCount: 100,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantName: "Miyanui Lebanon Plaza",
+    ratedPeopleCount: 15,
+    restaurantAddress: "3-Conners, Bambili",
     rating: 3.0,
   },
   {
     id: "5",
-    restaurantName: "King Of Foods",
-    ratedPeopleCount: 80,
-    restaurantAddress: "1124, Old Chruch Street, New york, USA",
+    restaurantName: "Crush in Black Rose Restaurant",
+    ratedPeopleCount: 8,
+    restaurantAddress: "3-Conners, Bambili",
     rating: 2.0,
   },
 ];
@@ -141,10 +87,8 @@ const HomeScreen = ({ navigation }) => {
           <>
             {searchInfo()}
             {banners()}
-            {foodCategoriesInfo()}
-            {offersInfo()}
             {nearByRestaurantsInfo()}
-            {todaysSpecialInfo()}
+           
           </>
         }
         contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 6.0 }}
@@ -152,80 +96,6 @@ const HomeScreen = ({ navigation }) => {
       />
     </View>
   );
-
-  function todaysSpecialInfo() {
-    const renderItem = ({ item }) => (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => navigation.push("OfferDetail", { item: item })}
-        style={{
-          backgroundColor: Colors.lightGrayColor,
-          borderRadius: Sizes.fixPadding,
-          marginBottom: Sizes.fixPadding + 5.0,
-        }}
-      >
-        <Image
-          source={item.foodImage}
-          style={styles.todaysSpecialFoodImageStyle}
-        />
-        <View style={styles.todaysSpecialFoodInfoWrapStyle}>
-          <Text
-            numberOfLines={2}
-            style={{ flex: 1, ...Fonts.blackColor13Medium }}
-          >
-            {item.foodName}
-          </Text>
-          <View
-            style={{ flex: 0.5, alignItems: "flex-end", alignSelf: "center" }}
-          >
-            <View
-              style={{
-                borderColor: item.isVeg ? Colors.greenColor : Colors.redColor,
-                ...styles.vegOrnonVegIconOuterStyle,
-              }}
-            >
-              <View
-                style={{
-                  ...styles.vegOrnonVegIconInnerStyle,
-                  backgroundColor: item.isVeg
-                    ? Colors.greenColor
-                    : Colors.redColor,
-                }}
-              />
-            </View>
-          </View>
-        </View>
-        <Text
-          style={{
-            position: "absolute",
-            top: 5.0,
-            right: 5.0,
-            ...Fonts.whiteColor14Bold,
-          }}
-        >
-          {item.amount.toFixed(2)}$
-        </Text>
-      </TouchableOpacity>
-    );
-    return (
-      <View style={{ margin: Sizes.fixPadding * 2.0 }}>
-        <Text
-          style={{
-            marginBottom: Sizes.fixPadding,
-            ...Fonts.blackColor16SemiBold,
-          }}
-        >
-          Today's Special
-        </Text>
-        <FlatList
-          data={todaysSpecialList}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={renderItem}
-          scrollEnabled={false}
-        />
-      </View>
-    );
-  }
 
   function nearByRestaurantsInfo() {
     const renderItem = ({ item }) => (
@@ -324,99 +194,6 @@ const HomeScreen = ({ navigation }) => {
       </View>
     );
   }
-
-  function offersInfo() {
-    const renderItem = ({ item }) => (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => navigation.push("OfferDetail", { item: item })}
-        style={styles.offerBannerWrapStyle}
-      >
-        <Image
-          source={item.bannerImage}
-          style={styles.offerBannerImageStyle}
-        />
-      </TouchableOpacity>
-    );
-    return (
-      <View style={{ marginTop: Sizes.fixPadding * 2.0 }}>
-        <View
-          style={{
-            marginHorizontal: Sizes.fixPadding * 2.0,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text style={{ ...Fonts.blackColor16SemiBold }}>Offers For You</Text>
-          <Text style={{ ...Fonts.primaryColor12SemiBold }}>see all</Text>
-        </View>
-        <FlatList
-          data={offersBannersList}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={renderItem}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingLeft: Sizes.fixPadding * 2.0,
-            paddingTop: Sizes.fixPadding,
-          }}
-        />
-      </View>
-    );
-  }
-
-  function foodCategoriesInfo() {
-    const renderItem = ({ item }) => (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        onPress={() => navigation.push("RestaurantsList")}
-        style={{ alignItems: "center", marginRight: Sizes.fixPadding + 5.0 }}
-      >
-        <Image
-          source={item.foodImage}
-          style={{
-            width: width * 0.18,
-            height: width * 0.19,
-            borderRadius: Sizes.fixPadding,
-          }}
-        />
-        <Text
-          style={{
-            marginTop: Sizes.fixPadding - 5.0,
-            ...Fonts.blackColor11SemiBold,
-          }}
-        >
-          {item.category}
-        </Text>
-      </TouchableOpacity>
-    );
-    return (
-      <View>
-        <Text
-          style={{
-            marginTop: Sizes.fixPadding * 2.0,
-            marginHorizontal: Sizes.fixPadding * 2.0,
-            ...Fonts.blackColor16SemiBold,
-          }}
-        >
-          Food Categories
-        </Text>
-        <FlatList
-          data={foodCategoriesList}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={renderItem}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingLeft: Sizes.fixPadding * 2.0,
-            paddingTop: Sizes.fixPadding,
-          }}
-        />
-      </View>
-    );
-  }
-
   function banners() {
     const renderItem = ({ item }) => (
       <Image source={item.bannerImage} style={styles.bannerImageStyle} />

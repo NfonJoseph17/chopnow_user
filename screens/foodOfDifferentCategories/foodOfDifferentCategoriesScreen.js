@@ -7,7 +7,7 @@ import MyStatusBar from "../../components/myStatusBar";
 
 const { width } = Dimensions.get('window');
 
-const categoriesList = ['Fast food', 'Starter', 'Main Course', 'Dessert'];
+const categoriesList = ['Fast food'];
 
 const availableFoodList = [
     {
@@ -58,43 +58,37 @@ const otherAvailableFoodList = [
     {
         id: '1',
         foodImage: require('../../assets/images/food/food13.png'),
-        foodName: 'Burger',
-        amount: 12.00,
+        foodName: 'Fufu and Kati Kati',
+        amount: 1500.00,
         customizable: false,
     },
     {
         id: '2',
         foodImage: require('../../assets/images/food/food18.png'),
-        foodName: 'Veg Cheese Sandwich',
-        amount: 10.00,
+        foodName: 'Fried Rice and chicken',
+        amount: 1000.00,
         customizable: true,
     },
     {
         id: '3',
         foodImage: require('../../assets/images/food/food19.png'),
-        foodName: 'Crust Gourmet Pizza',
-        amount: 15.00,
-        customizable: true,
+        foodName: 'Irish Hot pot',
+        amount: 1500.00,
+        customizable: false,
     },
 ];
 
 const customiseOptionsList = [
     {
         id: '1',
-        option: 'Extra Cheese',
-        amount: 3.00,
+        option: 'Extra Chicken',
+        amount: 500.00,
         isSelected: false,
     },
     {
         id: '2',
-        option: 'Extra Mayonnaise',
-        amount: 2.00,
-        isSelected: false,
-    },
-    {
-        id: '3',
-        option: 'Extra Veggies',
-        amount: 1.50,
+        option: 'Mayonnaise',
+        amount: 100.00,
         isSelected: false,
     },
 ];
@@ -149,7 +143,7 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
                             {item.foodName}
                         </Text>
                         <Text style={{ marginVertical: Sizes.fixPadding - 7.0, ...Fonts.blackColor12SemiBold }}>
-                            {`$`}{item.amount.toFixed(2)}
+                            {item.amount.toFixed(2)}{` XAF`}
                         </Text>
                         {
                             item.customizable
@@ -182,7 +176,7 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
             <View style={{ flex: 1 }}>
                 <FlatList
                     data={selectedCategory == 'Fast food' ? otherAvailableFoodList : selectedCategory == 'Starter' ? availableFoodList : selectedCategory == 'Main Course' ? otherAvailableFoodList : availableFoodList}
-                    keyExtractor={(item) => `${item.id}`}
+                    keyExtractor={(item) => `{item.id} XAF`}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingTop: Sizes.fixPadding - 8.0, paddingHorizontal: Sizes.fixPadding * 2.0, }}
@@ -216,7 +210,7 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
                             {selectedCustomProductName}
                         </Text>
                         <Text style={{ marginTop: Sizes.fixPadding - 5.0, ...Fonts.blackColor13Medium }}>
-                            {`$`}{selectedCustomProductAmount.toFixed(2)}
+                            {selectedCustomProductAmount.toFixed(2)}{` XAF`}
                         </Text>
                     </View>
                     <TouchableOpacity
@@ -238,7 +232,7 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
                     {
                         customiseOptions.map((item) => (
                             <View
-                                key={`${item.id}`}
+                                key={`{item.id} XAF`}
                                 style={styles.customiseOptionWrapStyle}
                             >
                                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
@@ -267,7 +261,6 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
                                     </Text>
                                 </View>
                                 <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                                    {`$`}{item.amount.toFixed(2)}
                                 </Text>
                             </View>
                         ))
@@ -287,7 +280,7 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
                 >
                     {
                         categoriesList.map((item, index) =>
-                            <View key={`${index}`}
+                            <View key={`{index} XAF`}
                                 style={{ marginRight: Sizes.fixPadding * 2.0, alignItems: 'center' }}
                             >
                                 {
@@ -325,7 +318,7 @@ const FoodOfDifferentCategoriesScreen = ({ navigation }) => {
                         onPress={() => navigation.pop()}
                     />
                     <Text numberOfLines={1} style={{ marginLeft: Sizes.fixPadding - 5.0, flex: 1, ...Fonts.blackColor18SemiBold }}>
-                        Marine Rise Restaurant
+                        Las Vegas Complext
                     </Text>
                 </View>
                 <MaterialIcons

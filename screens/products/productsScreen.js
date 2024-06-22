@@ -12,32 +12,32 @@ const sizesList = [
 const productsList = [
     {
         id: '1',
-        foodImage: require('../../assets/images/food/food20.png'),
-        foodName: 'Veg Sandwich',
-        cusomization: 'Sauce tomato,mozzarella, chilly etc.',
-        timeToDelivered: '25 min',
+        foodImage: require('../../assets/images/food/food13.png'),
+        foodName: 'Fufu and Kati Kati',
+        // cusomization: 'Sauce tomato,mozzarella, chilly etc.',
+        // timeToDelivered: '25 min',
         itemCount: 1,
-        amount: 6.0,
+        amount: 1500.0,
         size: sizesList[0],
     },
     {
         id: '2',
-        foodImage: require('../../assets/images/food/food21.png'),
-        foodName: 'Veg Frankie',
+        foodImage: require('../../assets/images/food/food18.png'),
+        foodName: 'Fried Rice and chicken',
         cusomization: 'Sauce tomato,mozzarella, chilly etc.',
         timeToDelivered: '35 min',
         itemCount: 1,
-        amount: 10.0,
+        amount: 1000.00,
         size: sizesList[0],
     },
     {
         id: '3',
-        foodImage: require('../../assets/images/food/food22.png'),
-        foodName: 'Margherite Pizza',
+        foodImage: require('../../assets/images/food/food19.png'),
+        foodName: 'Irish Hotpot',
         cusomization: 'Sauce tomato,mozzarella, chilly etc.',
         timeToDelivered: '23 min',
         itemCount: 1,
-        amount: 10.0,
+        amount: 1500.00,
         size: sizesList[0],
     },
 ];
@@ -46,7 +46,7 @@ const ProductsScreen = ({ navigation }) => {
 
     const [state, setState] = useState({
         products: productsList,
-        showSizeOptions: true,
+        showSizeOptions: false,
         currentOptionsId: null,
     })
 
@@ -93,7 +93,7 @@ const ProductsScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <Text style={{ marginLeft: Sizes.fixPadding + 5.0, ...Fonts.blackColor14SemiBold }}>
-                    3 items | $28.0
+                    3 items | 4000.00 XAF
                 </Text>
             </View>
         )
@@ -151,12 +151,12 @@ const ProductsScreen = ({ navigation }) => {
                         <Text style={{ ...Fonts.blackColor16SemiBold }}>
                             {item.foodName}
                         </Text>
-                        <Text style={{ marginVertical: Sizes.fixPadding - 5.0, ...Fonts.grayColor14Medium }}>
+                        {/* <Text style={{ marginVertical: Sizes.fixPadding - 5.0, ...Fonts.grayColor14Medium }}>
                             Sauce tomato,mozzarella, chilly etc.
-                        </Text>
-                        <Text style={{ ...Fonts.blackColor14SemiBold }}>
+                        </Text> */}
+                        {/* <Text style={{ ...Fonts.blackColor14SemiBold }}>
                             25 min
-                        </Text>
+                        </Text> */}
                     </View>
                     <View style={{ flex: 0.6, }}>
                         <Image
@@ -167,10 +167,10 @@ const ProductsScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.productSizeAndCountInfoWrapStyle}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ ...Fonts.blackColor12SemiBold }}>
+                        {/* <Text style={{ ...Fonts.blackColor12SemiBold }}>
                             Size
-                        </Text>
-                        <Menu
+                        </Text> */}
+                        {/* <Menu
                             visible={currentOptionsId == item.id ? showSizeOptions : false}
                             anchor={
                                 <TouchableOpacity
@@ -190,8 +190,8 @@ const ProductsScreen = ({ navigation }) => {
                                 </TouchableOpacity>
                             }
                             onRequestClose={() => updateState({ showSizeOptions: false })}
-                        >
-                            <View>
+                        > */}
+                            {/* <View>
                                 {
                                     sizesList.map((size, index) => (
                                         <MenuItem
@@ -207,11 +207,11 @@ const ProductsScreen = ({ navigation }) => {
                                     ))
                                 }
                             </View>
-                        </Menu>
+                        </Menu> */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ marginRight: Sizes.fixPadding + 5.0, ...Fonts.blackColor12SemiBold, }}>
-                            {`$`}{item.amount.toFixed(1)}
+                            {item.amount.toFixed(1)}{` XAF`}
                         </Text>
                         <TouchableOpacity
                             activeOpacity={0.9}
@@ -244,7 +244,7 @@ const ProductsScreen = ({ navigation }) => {
         return (
             <FlatList
                 data={products}
-                keyExtractor={(item) => `${item.id}`}
+                keyExtractor={(item) => `{item.id} XAF`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
                 scrollEnabled={false}
@@ -262,7 +262,7 @@ const ProductsScreen = ({ navigation }) => {
                     onPress={() => navigation.pop()}
                 />
                 <Text style={{ flex: 1, marginLeft: Sizes.fixPadding, ...Fonts.blackColor18SemiBold }}>
-                    Marine Rise Restaurant
+                    Las Vegas Complext
                 </Text>
             </View>
         )

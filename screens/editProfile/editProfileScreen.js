@@ -21,7 +21,7 @@ const { width } = Dimensions.get("screen");
 const EditProfileScreen = ({ navigation }) => {
 
   const [fullNameDialog, setFullnameDialog] = useState(false);
-  const [fullName, setFullName] = useState("Samantha John");
+  const [fullName, setFullName] = useState("Nfon Joseph");
   const [changeText, setChangeText] = useState(fullName);
 
   const [passwordDialog, setPasswordDialog] = useState(false);
@@ -29,11 +29,11 @@ const EditProfileScreen = ({ navigation }) => {
   const [changePassword, setChangePassword] = useState(password);
 
   const [phoneDialog, setPhoneDialog] = useState(false);
-  const [phone, setPhone] = useState("(+19) 1234567890");
+  const [phone, setPhone] = useState("+237 676858216");
   const [changePhone, setChangePhone] = useState(phone);
 
   const [emialDialog, setEmailDialog] = useState(false);
-  const [email, setEmail] = useState("samantha@gmail.com");
+  const [email, setEmail] = useState("nfonjoseph17@gmail.com");
   const [changeEmail, setChangeEmail] = useState(email);
 
   const [isBottomSheet, setIsBottomSheet] = useState(false);

@@ -248,8 +248,8 @@ const ProfileScreen = ({ navigation, changeIndex }) => {
             }}
           />
           <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
-            <Text style={{ ...Fonts.blackColor16SemiBold }}>Samantha John</Text>
-            <Text style={{ ...Fonts.grayColor12Medium }}>(+91) 1234567890</Text>
+            <Text style={{ ...Fonts.blackColor16SemiBold }}>Nfon Joseph</Text>
+            <Text style={{ ...Fonts.grayColor12Medium }}>+237 676858216</Text>
           </View>
         </View>
         <MaterialIcons

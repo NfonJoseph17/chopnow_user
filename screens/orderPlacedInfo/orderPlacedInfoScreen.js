@@ -50,7 +50,7 @@ const OrderPlacedInfoScreen = ({ navigation }) => {
                         Delivery address
                     </Text>
                     <Text style={{ marginRight: Sizes.fixPadding * 12.0, ...Fonts.grayColor10SemiBold }}>
-                        B 441, Old city town, Leminton, street Near City Part, Washington DC,United States Of America
+                        Standard lodge room 24, Bambili
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -58,7 +58,7 @@ const OrderPlacedInfoScreen = ({ navigation }) => {
                         Amount Payable
                     </Text>
                     <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                        $32.00
+                        4500.00 XAF
                     </Text>
                 </View>
                 <View style={styles.amountPayViaInfoWrapStyle}>
@@ -66,7 +66,7 @@ const OrderPlacedInfoScreen = ({ navigation }) => {
                         Amount Pay via
                     </Text>
                     <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                        Cash on delivery
+                        MTN Mobile Money
                     </Text>
                 </View>
             </View>
@@ -77,7 +77,7 @@ const OrderPlacedInfoScreen = ({ navigation }) => {
         return (
             <View style={{ alignItems: 'center' }}>
                 <Text style={{ marginTop: Sizes.fixPadding * 3.0, ...Fonts.blackColor22SemiBold }}>
-                    Hey, Samantha
+                    Hey, Nfon
                 </Text>
                 <Text style={{ marginTop: Sizes.fixPadding - 3.0, ...Fonts.blackColor18Medium }}>
                     Your order is placed!!!

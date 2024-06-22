@@ -11,32 +11,32 @@ const sizesList = [
 const cartProductsList = [
     {
         id: '1',
-        foodImage: require('../../assets/images/food/food20.png'),
-        foodName: 'Veg Sandwich',
+        foodImage: require('../../assets/images/food/food13.png'),
+        foodName: 'Fufu and Kati Kati',
         cusomization: 'Sauce tomato,mozzarella, chilly etc.',
         timeToDelivered: '25 min',
         itemCount: 1,
-        amount: 6.0,
+        amount: 1500.0,
         size: sizesList[0],
     },
     {
         id: '2',
-        foodImage: require('../../assets/images/food/food21.png'),
-        foodName: 'Veg Frankie',
+        foodImage: require('../../assets/images/food/food18.png'),
+        foodName: 'Fried Rice and chicken',
         cusomization: 'Sauce tomato,mozzarella, chilly etc.',
         timeToDelivered: '35 min',
         itemCount: 1,
-        amount: 10.0,
+        amount: 1000.0,
         size: sizesList[0],
     },
     {
         id: '3',
-        foodImage: require('../../assets/images/food/food22.png'),
-        foodName: 'Margherite Pizza',
+        foodImage: require('../../assets/images/food/food19.png'),
+        foodName: 'Irish Hotpot',
         cusomization: 'Sauce tomato,mozzarella, chilly etc.',
         timeToDelivered: '23 min',
         itemCount: 1,
-        amount: 10.0,
+        amount: 1500.0,
         size: sizesList[0],
     },
 ];
@@ -79,9 +79,9 @@ const CartScreen = ({ navigation }) => {
     function totalInfo() {
 
         const totalPrice = cartProducts.reduce((total, item) => total + (item.itemCount * item.amount), 0);
-        const tax = 2.5;
-        const deliveryCharge = 1.5;
-        const payableAmount = (totalPrice + tax + deliveryCharge)
+        // const tax = 2.5;
+        const deliveryCharge = 500;
+        const payableAmount = (totalPrice + deliveryCharge)
 
         return (
             <View style={styles.totalInfoWrapStyle}>
@@ -90,24 +90,24 @@ const CartScreen = ({ navigation }) => {
                         Sub Total
                     </Text>
                     <Text style={{ ...Fonts.blackColor16SemiBold }}>
-                        {`$`}{totalPrice.toFixed(1)}
+                        {totalPrice.toFixed(1)}{` XAF`}
                     </Text>
                 </View>
                 <View style={{ padding: Sizes.fixPadding }}>
-                    <View style={styles.totalDetailWrapStyle}>
+                    {/* <View style={styles.totalDetailWrapStyle}>
                         <Text style={{ ...Fonts.blackColor15Medium }}>
                             Service Tax
                         </Text>
                         <Text>
                             {`$`}{tax}
                         </Text>
-                    </View>
+                    </View> */}
                     <View style={{ paddingVertical: Sizes.fixPadding, ...styles.totalDetailWrapStyle }}>
                         <Text style={{ ...Fonts.blackColor15Medium }}>
                             Delivery Charge
                         </Text>
                         <Text>
-                            {`$`}{deliveryCharge}
+                            {deliveryCharge}{` XAF`}
                         </Text>
                     </View>
                     <View style={styles.totalDetailWrapStyle}>
@@ -115,7 +115,7 @@ const CartScreen = ({ navigation }) => {
                             Amount Payable
                         </Text>
                         <Text style={{ ...Fonts.primaryColor15SemiBold }}>
-                            {`$`}{payableAmount.toFixed(1)}
+                            {payableAmount.toFixed(1)}{` XAF`}
                         </Text>
                     </View>
                 </View>
@@ -175,9 +175,9 @@ const CartScreen = ({ navigation }) => {
                         <Text style={{ ...Fonts.blackColor16SemiBold }}>
                             {item.foodName}
                         </Text>
-                        <Text style={{ marginTop: Sizes.fixPadding - 5.0, ...Fonts.blackColor14SemiBold }}>
+                        {/* <Text style={{ marginTop: Sizes.fixPadding - 5.0, ...Fonts.blackColor14SemiBold }}>
                             25 min
-                        </Text>
+                        </Text> */}
                     </View>
                     <View style={{ flex: 0.6, }}>
                         <Image
@@ -187,7 +187,7 @@ const CartScreen = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.productSizeAndCountInfoWrapStyle}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ ...Fonts.blackColor12SemiBold }}>
                             Size
                         </Text>
@@ -229,7 +229,7 @@ const CartScreen = ({ navigation }) => {
                                 }
                             </View>
                         </Menu>
-                    </View>
+                    </View> */}
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={{ marginRight: Sizes.fixPadding + 5.0, ...Fonts.blackColor12SemiBold, }}>
                             {`$`}{item.amount.toFixed(1)}

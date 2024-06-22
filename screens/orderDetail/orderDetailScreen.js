@@ -9,21 +9,21 @@ const { width } = Dimensions.get('window');
 const orderItemsList = [
     {
         id: '1',
-        foodName: 'Veg Sandwich',
+        foodName: 'Fufu and Kati Kati',
         qty: 1,
-        totalAmount: 6.00,
+        totalAmount: 1500.00,
     },
     {
         id: '2',
-        foodName: 'Veg Frankie',
+        foodName: 'Fried Rice and chicken',
         qty: 1,
-        totalAmount: 10.00,
+        totalAmount: 1000.00,
     },
     {
         id: '3',
-        foodName: 'Margherite Pizza',
+        foodName: 'Irish Hotpot',
         qty: 1,
-        totalAmount: 12.00,
+        totalAmount: 1500.00,
     },
 ];
 
@@ -80,7 +80,7 @@ const OrderDetailScreen = ({ navigation }) => {
                     {
                         orderItemsList.map((item) => (
                             <View
-                                key={`${item.id}`}
+                                key={`{item.id} XAF`}
                                 style={styles.orderItemInfoWrapStyle}>
                                 <Text numberOfLines={1} style={{ width: width / 2.2, ...Fonts.blackColor13Medium }}>
                                     {item.foodName}
@@ -90,7 +90,7 @@ const OrderDetailScreen = ({ navigation }) => {
                                         {item.qty}
                                     </Text>
                                     <Text style={{ width: 70.0, textAlign: 'center', ...Fonts.blackColor13Medium }}>
-                                        {`$`}{item.totalAmount.toFixed(2)}
+                                        {item.totalAmount.toFixed(2)}{` `}
                                     </Text>
                                 </View>
                             </View>
@@ -101,31 +101,31 @@ const OrderDetailScreen = ({ navigation }) => {
                             TotalAmount
                         </Text>
                         <Text style={{ ...Fonts.blackColor13Medium, marginRight: Sizes.fixPadding + 3.0, }}>
-                            $28.00
+                            4000 XAF
                         </Text>
                     </View>
                     <View style={styles.serviceTaxInfoWrapStyle}>
-                        <Text style={{ ...Fonts.grayColor11Medium }}>
+                        {/* <Text style={{ ...Fonts.grayColor11Medium }}>
                             Service Tax:{` `}
                         </Text>
                         <Text style={{ ...Fonts.blackColor11Medium }}>
                             $2.50
-                        </Text>
+                        </Text> */}
                     </View>
                     <View style={styles.deliveryChargeInfoWrapStyle}>
                         <Text style={{ ...Fonts.grayColor11Medium }}>
                             Delivery Charge:{` `}
                         </Text>
                         <Text style={{ ...Fonts.blackColor11Medium }}>
-                            $1.50
+                            500.00 XAF
                         </Text>
                     </View>
                     <View style={styles.paidViaInfoWrapStyle}>
                         <Text style={{ ...Fonts.blackColor11SemiBold }}>
-                            Paid Via Credit Card:{` `}
+                            Paid Via MTN Mobile Money:{` `}
                         </Text>
                         <Text style={{ ...Fonts.primaryColor11SemiBold }}>
-                            $32.00
+                            4500.00 XAF
                         </Text>
                     </View>
                 </View>
@@ -137,10 +137,10 @@ const OrderDetailScreen = ({ navigation }) => {
         return (
             <View style={styles.restaurantInfoWrapStyle}>
                 <Text style={{ ...Fonts.blackColor14SemiBold }}>
-                    Marine Rise Restaurant
+                    Las Vegas Complext
                 </Text>
                 <Text style={{ ...Fonts.grayColor10Medium }}>
-                    1124, Old Church Street New york, USA
+                    3-conner, Bambili
                 </Text>
             </View>
         )
@@ -173,7 +173,7 @@ const OrderDetailScreen = ({ navigation }) => {
                             {
                                 representedIcon: require('../../assets/images/icons/ready.png'),
                                 title: 'Order Ready',
-                                value: '4:25 pm'
+                                // value: '4:25 pm'
                             }
                         )}
                         {orderDetailWithTimeSort(

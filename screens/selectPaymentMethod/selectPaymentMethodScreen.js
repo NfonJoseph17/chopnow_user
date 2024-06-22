@@ -7,29 +7,15 @@ import MyStatusBar from "../../components/myStatusBar";
 const paymentMethodsList = [
     {
         id: '1',
-        paymentMethod: 'Wallet',
+        paymentMethod: 'MTN Momo',
         paymentMethodIcon: require('../../assets/images/paymentMethod/wallet.png'),
     },
     {
         id: '2',
-        paymentMethod: 'Credit card/Debit card',
+        paymentMethod: 'Orange Money',
         paymentMethodIcon: require('../../assets/images/paymentMethod/card.png'),
     },
-    {
-        id: '3',
-        paymentMethod: 'Cash on delivery',
-        paymentMethodIcon: require('../../assets/images/paymentMethod/cash.png'),
-    },
-    {
-        id: '4',
-        paymentMethod: 'Paypal',
-        paymentMethodIcon: require('../../assets/images/paymentMethod/paypal.png'),
-    },
-    {
-        id: '5',
-        paymentMethod: 'PayUmoney',
-        paymentMethodIcon: require('../../assets/images/paymentMethod/payUmoney.png'),
-    },
+    
 ];
 
 const SelectPaymentMethodScreen = ({ navigation }) => {
@@ -66,7 +52,7 @@ const SelectPaymentMethodScreen = ({ navigation }) => {
                 style={styles.proceedToCheckoutButtonStyle}
             >
                 <Text style={{ ...Fonts.whiteColor18Bold }}>
-                    Proceed To Checkout
+                    Make Payment
                 </Text>
             </TouchableOpacity>
         )
@@ -79,7 +65,7 @@ const SelectPaymentMethodScreen = ({ navigation }) => {
                     Amount Payable
                 </Text>
                 <Text style={{ ...Fonts.blackColor18SemiBold }}>
-                    $32.00
+                    4500.00 XAF
                 </Text>
             </View>
         )

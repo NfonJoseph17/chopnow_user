@@ -7,37 +7,22 @@ import MyStatusBar from "../../components/myStatusBar";
 
 const { width } = Dimensions.get('window');
 
-const popularItemsList = [
-    {
-        id: '1',
-        foodImage: require('../../assets/images/food/food12.png'),
-        foodName: 'Veg Cheese Sandwich',
-        amount: 7.00,
-    },
-    {
-        id: '2',
-        foodImage: require('../../assets/images/food/food16.png'),
-        foodName: 'Veg Frankie',
-        amount: 6.00,
-    },
-];
-
 const reviewsList = [
     {
         id: '1',
         peopleImage: require('../../assets/images/users/user1.png'),
-        peopleName: 'George Smith',
-        reviewDate: 'June 25, 2020',
+        peopleName: 'Jeannoel',
+        reviewDate: 'June 05, 2024',
         rating: 4.0,
-        review: 'Marine rise restaurant sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...',
+        review: 'This is the best restaurant to order food from so far in bambili, highly recommend them',
     },
     {
         id: '2',
         peopleImage: require('../../assets/images/users/user2.png'),
-        peopleName: 'Grecy John',
-        reviewDate: 'June 28, 2020',
+        peopleName: 'Franklin',
+        reviewDate: 'June 08, 2024',
         rating: 3.0,
-        review: 'Marine rise restaurant sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...',
+        review: 'The food was so small but tast good, I was not satisfied',
     },
 ];
 
@@ -63,7 +48,7 @@ const RestaurantDetailScreen = ({ navigation }) => {
                         }}
                     >
                         {restaurantDetail()}
-                        {mostPopularItemsInfo()}
+    
                         {peopleReviewsInfo()}
                         {orderFoodNowButton()}
                     </ScrollView>
@@ -221,46 +206,7 @@ const RestaurantDetailScreen = ({ navigation }) => {
         )
     }
 
-    function mostPopularItemsInfo() {
-        const renderItem = ({ item }) => (
-            <View style={styles.popularItemsWrapStyle}>
-                <View style={{ flex: 1, }}>
-                    <Image
-                        source={item.foodImage}
-                        style={styles.popularFoodImageStyle}
-                    />
-                </View>
-                <View style={{ padding: Sizes.fixPadding - 5.0, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text>
-                        <Text style={{ flex: 1, ...Fonts.blackColor12SemiBold }}>
-                            {item.foodName}
-                        </Text>
-                        <Text style={{ ...Fonts.blackColor12SemiBold }}>
-                            { } | { }
-                        </Text>
-                        <Text style={{ ...Fonts.primaryColor12SemiBold }}>
-                            {`$`}{item.amount.toFixed(2)}
-                        </Text>
-                    </Text>
-                </View>
-            </View>
-        )
-        return (
-            <View style={{}}>
-                <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, ...Fonts.blackColor16SemiBold }}>
-                    Most Popular
-                </Text>
-                <FlatList
-                    data={popularItemsList}
-                    keyExtractor={(item) => `${item.id}`}
-                    renderItem={renderItem}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingVertical: Sizes.fixPadding * 2.0, paddingLeft: Sizes.fixPadding * 2.0, }}
-                />
-            </View>
-        )
-    }
+    
 
     function restaurantDetail() {
         return (
@@ -274,7 +220,7 @@ const RestaurantDetailScreen = ({ navigation }) => {
                             />
                             <View style={{ flex: 1, marginLeft: Sizes.fixPadding * 7.7, }}>
                                 <Text numberOfLines={1} style={{ ...Fonts.blackColor14SemiBold }}>
-                                    Marine Rise Restaurant
+                                    Las Vegas Complext
                                 </Text>
                             </View>
                         </View>
@@ -290,7 +236,7 @@ const RestaurantDetailScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <Text style={{ ...Fonts.grayColor14Medium }}>
-                        Fast food, Italian, Chinese
+                        Fast food, Drinks, 
                     </Text>
                     <View style={{ marginTop: Sizes.fixPadding - 5.0, flex: 1, flexDirection: 'row', }}>
                         <MaterialIcons
@@ -299,7 +245,7 @@ const RestaurantDetailScreen = ({ navigation }) => {
                             size={16}
                         />
                         <Text style={{ flex: 1, marginLeft: Sizes.fixPadding - 5.0, ...Fonts.grayColor13Medium }}>
-                            2.5 | 1124, ghsyte ghyrths jku
+                           3-Conners, Bambili
                         </Text>
                     </View>
                 </View>
@@ -308,7 +254,7 @@ const RestaurantDetailScreen = ({ navigation }) => {
                         About Restaurant
                     </Text>
                     <Text style={{ marginLeft: Sizes.fixPadding + 10.0, ...Fonts.grayColor12Regular }}>
-                        Marine rise restaurant sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...
+                        We prepare the best african dishes, Order food now from our restaurant and recieve what you see on the pictures
                     </Text>
                 </View>
             </View>
