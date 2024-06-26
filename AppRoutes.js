@@ -31,6 +31,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./contexts/AuthContexts";
 import { httpsCallable } from "firebase/functions";
 import { auth, functions } from "./App";
+import AssistantScreen from "./screens/assistant/AssistantScreen";
 
 
 const Stack = createStackNavigator();
@@ -86,6 +87,7 @@ const AppRoutes = () => {
             <Stack.Screen name="Verification" component={VerificationScreen} />
           </>
       }
+      <Stack.Screen name="AIAssistant" component={AssistantScreen} />
       <Stack.Screen name="BottomTabBar" component={BottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Products" component={ProductsScreen} />
