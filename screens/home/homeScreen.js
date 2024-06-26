@@ -7,9 +7,10 @@ import {
   Image,
   Dimensions,
   FlatList,
+  Pressable,
 } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
@@ -94,6 +95,12 @@ const HomeScreen = ({ navigation }) => {
         contentContainerStyle={{ paddingBottom: Sizes.fixPadding * 6.0 }}
         showsVerticalScrollIndicator={false}
       />
+      
+      <View style={{position:'absolute', bottom:84, right:16, zIndex:50}}>
+        <Pressable onPress={() => navigation.navigate("AIAssistant")} style={styles.aiFloatingButton}>
+          <FontAwesome5 name="robot" color={'white'} size={24}/>
+        </Pressable>
+      </View>
     </View>
   );
 
@@ -302,6 +309,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: Sizes.fixPadding - 6.0,
   },
+  aiFloatingButton:{
+    padding:6,
+    paddingBottom:8,
+    height:52, width:52,
+    borderRadius:20,
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:Colors.primaryColor
+  }
 });
 
 export default HomeScreen;
