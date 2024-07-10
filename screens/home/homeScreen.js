@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,83 +11,47 @@ import {
 } from "react-native";
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 import { MaterialIcons, Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../../App";
 
 const { width } = Dimensions.get("window");
 
-const todaysSpecialList = [
-  {
-    id: "t1",
-    foodImage: require("../../assets/images/food/food11.png"),
-    foodName: "Chicken italiano cheezy periperi pizza",
-    amount: 14.99,
-    isVeg: false,
-  },
-  {
-    id: "t2",
-    foodImage: require("../../assets/images/food/food14.png"),
-    foodName: "Paneer Khurchan",
-    amount: 19.99,
-    isVeg: true,
-  },
-];
-
-const bannersList = [
-  {
-    id: "1",
-    bannerImage: require("../../assets/images/food/food1.png"),
-  },
-  {
-    id: "2",
-    bannerImage: require("../../assets/images/food/food2.png"),
-  },
-];
-
-const nearByRestaurantsList = [
-  {
-    id: "1",
-    restaurantName: "Legacy Restaurant",
-    ratedPeopleCount: 8,
-    restaurantAddress: "ENS Street, Bambili",
-    rating: 4.3,
-  },
-  {
-    id: "2",
-    restaurantName: "Las Vegas complext Restaurant",
-    ratedPeopleCount: 18,
-    restaurantAddress: "3-Conners, Bambili",
-    rating: 4.0,
-  },
-  {
-    id: "3",
-    restaurantName: "Pluto Restaurant",
-    ratedPeopleCount: 10,
-    restaurantAddress: "ENS Street, Bambili",
-    rating: 3.5,
-  },
-  {
-    id: "4",
-    restaurantName: "Miyanui Lebanon Plaza",
-    ratedPeopleCount: 15,
-    restaurantAddress: "3-Conners, Bambili",
-    rating: 3.0,
-  },
-  {
-    id: "5",
-    restaurantName: "Crush in Black Rose Restaurant",
-    ratedPeopleCount: 8,
-    restaurantAddress: "3-Conners, Bambili",
-    rating: 2.0,
-  },
-];
 
 const HomeScreen = ({ navigation }) => {
+  const [banners, setBanners] = useState([]);
+  const [nearbyRestaus, setNearbyRestaus] = useState([]);
+
+  const getAndSetBanners = async () => {
+    try {
+      const getBanners = httpsCallable(functions, 'getBanners');
+      const {banners} = (await getBanners()).data;
+      setBanners(banners);
+    } catch (error) {
+      console.log('An error occured while getting restaus: ', error);
+    };
+  };
+
+  const getAndSetRestaus = async () => {
+    try {
+      const getRestausList = httpsCallable(functions, 'getRestausList');
+      const {restaus} = (await getRestausList({filter:'recommended'})).data;
+      setNearbyRestaus(restaus);
+    } catch (error) {
+      console.log('An error occured while getting restaus: ', error);
+    };
+  };
+
+  useEffect(() => {
+    getAndSetBanners();
+    getAndSetRestaus()
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <FlatList
         ListHeaderComponent={
           <>
             {searchInfo()}
-            {banners()}
+            {bannersInfos()}
             {nearByRestaurantsInfo()}
            
           </>
@@ -126,10 +90,10 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <View style={{ flex: 1, marginLeft: Sizes.fixPadding }}>
               <Text style={{ ...Fonts.blackColor12SemiBold }}>
-                {item.restaurantName}
+                {item.name}
               </Text>
               <Text style={{ ...Fonts.grayColor12Medium }}>
-                {item.ratedPeopleCount} People Rated
+                {item.ratingsCount} People Rated
               </Text>
             </View>
           </View>
@@ -163,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
               ...Fonts.grayColor12Medium,
             }}
           >
-            {item.restaurantAddress}
+            {item.address}
           </Text>
         </View>
       </TouchableOpacity>
@@ -192,7 +156,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <FlatList
           listKey="nearByRestaurants"
-          data={nearByRestaurantsList}
+          data={nearbyRestaus}
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           scrollEnabled={false}
@@ -201,14 +165,14 @@ const HomeScreen = ({ navigation }) => {
       </View>
     );
   }
-  function banners() {
+  function bannersInfos() {
     const renderItem = ({ item }) => (
-      <Image source={item.bannerImage} style={styles.bannerImageStyle} />
+      <Image source={item.image.uri} style={styles.bannerImageStyle} />
     );
     return (
       <View>
         <FlatList
-          data={bannersList}
+          data={banners}
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           horizontal
