@@ -9,8 +9,11 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    console.log('User Context: ', user)
     if (user) {
       AsyncStorage.setItem('currentUser', JSON.stringify(user));
+    } else {
+      AsyncStorage.removeItem('currentUser');
     }
   }, [user]);
 
@@ -18,7 +21,6 @@ const AuthContextProvider = ({ children }) => {
     const getAndSetStoredUser = async () => {
       const storedUser = await AsyncStorage.getItem('currentUser');
       if (storedUser) setUser(JSON.parse(storedUser));
-      console.log('Stored user: ', storedUser);
     };
 
     getAndSetStoredUser();

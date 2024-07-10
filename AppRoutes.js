@@ -47,7 +47,7 @@ const AppRoutes = () => {
       const getCurrentUser = httpsCallable(functions, 'getCurrentUser');
       const response = await getCurrentUser();
       // We are almost sure that by the time we get the user by email, setUser function will be initialized (non null)
-      if (setUser) setUser({...response.data.user, createdAt:new Date(response.data.user.createdAt)});
+      if (setUser) setUser({ ...response.data.user, createdAt: new Date(response.data.user.createdAt) });
     } catch (error) {
       if (error.code == 'auth/user-not-found') auth.signOut(); //signs out if the user doesn't exist in the db
       console.log('Error while getting current user: ', error);
@@ -58,15 +58,13 @@ const AppRoutes = () => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         handleAuthUserExists(authUser);
+        unsubscribe();
       } else {
         if (setUser) setUser(null); // Signed out
-        await AsyncStorage.removeItem('currentUser');
       }
 
       if (initializing) setInitializing(false);
     });
-
-    return unsubscribe;
   }, []);
 
   return (
@@ -77,39 +75,41 @@ const AppRoutes = () => {
       }}
     >
       {
-        user ? null
-          :
+        !user ?
           <>
             <Stack.Screen name="Splash" component={SplashScreen} options={{ ...TransitionPresets.DefaultTransition }} />
             <Stack.Screen name="Signin" component={SigninScreen} options={{ ...TransitionPresets.DefaultTransition }} />
             <Stack.Screen name="Signup" component={SignupScreen} />
+          </>
+          :
+          <>
             <Stack.Screen name="Personals" component={Personals} />
             <Stack.Screen name="Verification" component={VerificationScreen} />
+            <Stack.Screen name="BottomTabBar" component={BottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
+            <Stack.Screen name="AIAssistant" component={AssistantScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} />
+            <Stack.Screen name="Products" component={ProductsScreen} />
+            <Stack.Screen name="RestaurantsList" component={RestaurantsListScreen} />
+            <Stack.Screen name="RestaurantDetail" component={RestaurantDetailScreen} />
+            <Stack.Screen name="FoodOfDifferentCategories" component={FoodOfDifferentCategoriesScreen} />
+            <Stack.Screen name="OfferDetail" component={OfferDetailScreen} />
+            <Stack.Screen name="SelectDeliveryAddress" component={SelectDeliveryAddressScreen} />
+            <Stack.Screen name="AddNewAddress" component={AddNewAddressScreen} />
+            <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen} />
+            <Stack.Screen name="OrderPlaceInfo" component={OrderPlacedInfoScreen} />
+            <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
+            <Stack.Screen name="TrackOrder" component={TrackOrderScreen} />
+            <Stack.Screen name="Message" component={MessageScreen} />
+            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+            <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
+            <Stack.Screen name="AddNewPaymentMethod" component={AddNewPaymentMathodScreen} />
+            <Stack.Screen name="Address" component={AddressScreen} />
+            <Stack.Screen name="ShareAndEarn" component={ShareAndEarnScreen} />
+            <Stack.Screen name="Notifications" component={NotificationsScreen} />
+            <Stack.Screen name="Favorites" component={FavoritesScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
           </>
       }
-      <Stack.Screen name="AIAssistant" component={AssistantScreen} />
-      <Stack.Screen name="BottomTabBar" component={BottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
-      <Stack.Screen name="Search" component={SearchScreen} />
-      <Stack.Screen name="Products" component={ProductsScreen} />
-      <Stack.Screen name="RestaurantsList" component={RestaurantsListScreen} />
-      <Stack.Screen name="RestaurantDetail" component={RestaurantDetailScreen} />
-      <Stack.Screen name="FoodOfDifferentCategories" component={FoodOfDifferentCategoriesScreen} />
-      <Stack.Screen name="OfferDetail" component={OfferDetailScreen} />
-      <Stack.Screen name="SelectDeliveryAddress" component={SelectDeliveryAddressScreen} />
-      <Stack.Screen name="AddNewAddress" component={AddNewAddressScreen} />
-      <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen} />
-      <Stack.Screen name="OrderPlaceInfo" component={OrderPlacedInfoScreen} />
-      <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
-      <Stack.Screen name="TrackOrder" component={TrackOrderScreen} />
-      <Stack.Screen name="Message" component={MessageScreen} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-      <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
-      <Stack.Screen name="AddNewPaymentMethod" component={AddNewPaymentMathodScreen} />
-      <Stack.Screen name="Address" component={AddressScreen} />
-      <Stack.Screen name="ShareAndEarn" component={ShareAndEarnScreen} />
-      <Stack.Screen name="Notifications" component={NotificationsScreen} />
-      <Stack.Screen name="Favorites" component={FavoritesScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   )
 };

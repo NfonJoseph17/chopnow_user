@@ -5,7 +5,7 @@ import * as ExpoSplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { connectAuthEmulator, getReactNativePersistence, initializeAuth } from 'firebase/auth';
+import { connectAuthEmulator, getAuth, getReactNativePersistence, initializeAuth } from 'firebase/auth';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 import { connectStorageEmulator, getStorage } from 'firebase/storage';
@@ -29,7 +29,7 @@ const firebaseConfig = {
   measurementId: "G-7Y2WQHXVCP"
 };
 
-const origin = "192.168.248.174";
+const origin = "192.168.243.174";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
