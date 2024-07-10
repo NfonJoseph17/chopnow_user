@@ -9,11 +9,12 @@ import {
 } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { CheckBox } from 'react-native-elements';
-import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
+import { Colors, Fonts, Sizes, } from "../../constants/styles";
 import MyStatusBar from "../../components/myStatusBar";
 import { httpsCallable } from "firebase/functions";
 import { auth, functions } from "../../App";
 import { AuthContext } from "../../contexts/AuthContexts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Personals = ({ navigation }) => {
   const [age, setAge] = useState("");
@@ -48,6 +49,7 @@ const Personals = ({ navigation }) => {
     try {
       const addProfile = httpsCallable(functions, 'addProfile');
       const {profile} = await (await addProfile(userInfo)).data;
+      await AsyncStorage.setItem('personalsVisible', 'false');
       navigation.push("BottomTabBar"); // Navigate to the home screen after submission
     } catch (error) {
       console.log('An error occured when submitting the profile: ', error);

@@ -64,7 +64,7 @@ const App = () => {
   
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
-      await ExpoSplashScreen.hideAsync();
+      // await ExpoSplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 

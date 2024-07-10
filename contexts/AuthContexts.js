@@ -7,13 +7,13 @@ export const AuthContext = createContext(null);
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    console.log('User Context: ', user)
     if (user) {
       AsyncStorage.setItem('currentUser', JSON.stringify(user));
     } else {
-      AsyncStorage.removeItem('currentUser');
+      // AsyncStorage.removeItem('currentUser');
     }
   }, [user]);
 
@@ -21,6 +21,7 @@ const AuthContextProvider = ({ children }) => {
     const getAndSetStoredUser = async () => {
       const storedUser = await AsyncStorage.getItem('currentUser');
       if (storedUser) setUser(JSON.parse(storedUser));
+      setInitializing(false);
     };
 
     getAndSetStoredUser();
@@ -30,6 +31,7 @@ const AuthContextProvider = ({ children }) => {
       value={{
         user: user,
         setUser: setUser,
+        initializing
       }}
     >
       {children}

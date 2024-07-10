@@ -32,15 +32,17 @@ import { AuthContext } from "./contexts/AuthContexts";
 import { httpsCallable } from "firebase/functions";
 import { auth, functions } from "./App";
 import AssistantScreen from "./screens/assistant/AssistantScreen";
+import { hideAsync } from "expo-splash-screen";
 
 
 const Stack = createStackNavigator();
 
 const AppRoutes = () => {
-  const [initializing, setInitializing] = useState(true);
-
+  
   const user = useContext(AuthContext)?.user;
   const setUser = useContext(AuthContext)?.setUser;
+  const initializing = useContext(AuthContext)?.initializing;
+  
 
   const handleAuthUserExists = async (authUser) => {
     try {
@@ -49,10 +51,17 @@ const AppRoutes = () => {
       // We are almost sure that by the time we get the user by email, setUser function will be initialized (non null)
       if (setUser) setUser({ ...response.data.user, createdAt: new Date(response.data.user.createdAt) });
     } catch (error) {
-      if (error.code == 'auth/user-not-found') auth.signOut(); //signs out if the user doesn't exist in the db
+      if (error.code == 'auth/user-not-found'){
+        auth.signOut(); //signs out if the user doesn't exist in the db
+        AsyncStorage.removeItem('currentUser');
+      }
       console.log('Error while getting current user: ', error);
     }
   };
+
+  useEffect(() => {
+    if(initializing===false) hideAsync();
+  }, [initializing]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
@@ -63,9 +72,12 @@ const AppRoutes = () => {
         if (setUser) setUser(null); // Signed out
       }
 
-      if (initializing) setInitializing(false);
     });
   }, []);
+
+  if(initializing!=false) {
+    return null;
+  };
 
   return (
     <Stack.Navigator
@@ -83,9 +95,9 @@ const AppRoutes = () => {
           </>
           :
           <>
-            <Stack.Screen name="Personals" component={Personals} />
-            <Stack.Screen name="Verification" component={VerificationScreen} />
             <Stack.Screen name="BottomTabBar" component={BottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
+            <Stack.Screen name="Verification" component={VerificationScreen} />
+            <Stack.Screen name="Personals" component={Personals} />
             <Stack.Screen name="AIAssistant" component={AssistantScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
             <Stack.Screen name="Products" component={ProductsScreen} />
