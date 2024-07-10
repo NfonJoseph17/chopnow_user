@@ -46,7 +46,7 @@ const RestaurantsListScreen = ({ navigation }) => {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
             <Image
-              source={item.logo}
+              source={{uri:item.logoUrl}}
               style={{ width: 40.0, height: 40.0, borderRadius: Sizes.fixPadding - 5.0, }}
             />
             <View style={{ flex: 1, marginLeft: Sizes.fixPadding, }}>
