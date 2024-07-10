@@ -102,7 +102,7 @@ const SignupScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.navigate('Verification')}
+        onPress={onSignUpPress}
         style={styles.signupButtonStyle}
       >
         <Text style={{ ...Fonts.whiteColor18Bold }}>

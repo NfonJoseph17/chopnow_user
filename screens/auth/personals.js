@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   TextInput,
@@ -11,6 +11,9 @@ import { Picker } from '@react-native-picker/picker';
 import { CheckBox } from 'react-native-elements';
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import MyStatusBar from "../../components/myStatusBar";
+import { httpsCallable } from "firebase/functions";
+import { auth, functions } from "../../App";
+import { AuthContext } from "../../contexts/AuthContexts";
 
 const Personals = ({ navigation }) => {
   const [age, setAge] = useState("");
@@ -24,6 +27,7 @@ const Personals = ({ navigation }) => {
   const [customHealthCondition, setCustomHealthCondition] = useState("");
   const [customNutritionalGoal, setCustomNutritionalGoal] = useState("");
 
+  const user = useContext(AuthContext)?.user;
   const handleCheckBoxChange = (value, setter, currentState) => {
     if (currentState.includes(value)) {
       setter(currentState.filter(item => item !== value));
@@ -32,17 +36,22 @@ const Personals = ({ navigation }) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const userInfo = {
-      age,
+      age:Number(age),
       gender,
       dietaryRestrictions: [...dietaryRestrictions, customDietaryRestriction],
       allergies: [...allergies, customAllergy],
       healthConditions: [...healthConditions, customHealthCondition],
       nutritionalGoals: [...nutritionalGoals, customNutritionalGoal],
     };
-    console.log("Personal Info Submitted:", userInfo);
-    navigation.push("BottomTabBar"); // Navigate to the home screen after submission
+    try {
+      const addProfile = httpsCallable(functions, 'addProfile');
+      const {profile} = await (await addProfile(userInfo)).data;
+      navigation.push("BottomTabBar"); // Navigate to the home screen after submission
+    } catch (error) {
+      console.log('An error occured when submitting the profile: ', error);
+    }
   };
 
   return (
@@ -50,9 +59,8 @@ const Personals = ({ navigation }) => {
       <MyStatusBar />
       <ScrollView contentContainerStyle={{ padding: Sizes.fixPadding * 2.0 }}>
         {renderInputField("Age", age, setAge, "numeric")}
-        {renderPicker("Gender", gender, setGender, ["male", "female", "rather not say"])}
+        {renderPicker("Gender", gender, setGender, ["male", "female", "unspecified"])}
         {renderCheckBoxGroup("Dietary Restrictions", dietaryRestrictions, setDietaryRestrictions, [
-          "None",
           "Vegetarian",
           "Vegan",
           "Gluten-Free",
@@ -61,7 +69,6 @@ const Personals = ({ navigation }) => {
           "Enter yours"
         ], customDietaryRestriction, setCustomDietaryRestriction)}
         {renderCheckBoxGroup("Allergies", allergies, setAllergies, [
-          "None",
           "Peanuts",
           "Tree Nuts",
           "Dairy",
@@ -70,7 +77,6 @@ const Personals = ({ navigation }) => {
           "Enter yours"
         ], customAllergy, setCustomAllergy)}
         {renderCheckBoxGroup("Health Conditions", healthConditions, setHealthConditions, [
-          "None",
           "Diabetes",
           "Hypertension",
           "Hyperlipidemia",
