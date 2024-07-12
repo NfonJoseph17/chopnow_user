@@ -92,6 +92,7 @@ const AppRoutes = () => {
             <Stack.Screen name="Splash" component={SplashScreen} options={{ ...TransitionPresets.DefaultTransition }} />
             <Stack.Screen name="Signin" component={SigninScreen} options={{ ...TransitionPresets.DefaultTransition }} />
             <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Verification" component={VerificationScreen} />
           </>
           :
           <>
