@@ -25,6 +25,22 @@ const SelectDeliveryAddressScreen = ({ navigation, route }) => {
   const [selectedAddressId, setselectedAddressId] = useState(null);
   const [addresses, setAddresses] = useState([]);
   
+
+  const onProceedToPaymentPress = async () => {
+    try {
+      const cartedWithAddress = route.params.carted.map(carted => ({
+        ...carted,
+        addressId:selectedAddressId
+      }));
+      
+      const placeOrders = httpsCallable(functions, 'placeOrders');
+      const result = await placeOrders({carted:cartedWithAddress});
+      navigation.push('SelectPaymentMethod', {orders:result.data.orders});
+      
+    } catch (error) {
+      console.log('An error occured while proceeding to payments: ', error.message)
+    }
+  };
   
   const getAndSetAddresses = async () => {
     try {
@@ -66,7 +82,7 @@ const SelectDeliveryAddressScreen = ({ navigation, route }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.push('SelectPaymentMethod')}
+        onPress={onProceedToPaymentPress}
         style={styles.proceedToCheckoutButtonStyle}
       >
         <Text style={{ ...Fonts.whiteColor18Bold }}>

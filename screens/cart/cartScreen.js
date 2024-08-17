@@ -25,6 +25,11 @@ const CartScreen = ({ navigation }) => {
   //   currentOptionsId,
   // } = state;
 
+  const onCheckoutPress = () => {
+    const cartedItems = cartContents.map(({id, quantity}) => ({id, quantity}));
+    navigation.push('SelectDeliveryAddress', {carted:cartedItems})
+  }
+
   const getAndSetCartContents = async () => {
     try {
       const getCartContents = httpsCallable(functions, 'getCartContents');
@@ -107,7 +112,7 @@ const CartScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigation.push('SelectDeliveryAddress')}
+        onPress={onCheckoutPress}
         style={styles.proceedToCheckoutButtonStyle}
       >
         <Text style={{ ...Fonts.whiteColor18Bold }}>
