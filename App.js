@@ -29,7 +29,7 @@ const firebaseConfig = {
   measurementId: "G-7Y2WQHXVCP"
 };
 
-const origin = "192.168.243.174";
+const origin = "10.0.2.2";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

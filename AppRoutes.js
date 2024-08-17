@@ -67,12 +67,12 @@ const AppRoutes = () => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         handleAuthUserExists(authUser);
-        unsubscribe();
       } else {
         if (setUser) setUser(null); // Signed out
       }
 
     });
+    // return unsubscribe()
   }, []);
 
   if(initializing!=false) {
@@ -80,49 +80,49 @@ const AppRoutes = () => {
   };
 
   return (
+    !user?
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >
-      {
-        !user ?
-          <>
-            <Stack.Screen name="Splash" component={SplashScreen} options={{ ...TransitionPresets.DefaultTransition }} />
-            <Stack.Screen name="Signin" component={SigninScreen} options={{ ...TransitionPresets.DefaultTransition }} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-            <Stack.Screen name="Verification" component={VerificationScreen} />
-          </>
-          :
-          <>
-            <Stack.Screen name="BottomTabBar" component={BottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
-            <Stack.Screen name="Verification" component={VerificationScreen} />
-            <Stack.Screen name="Personals" component={Personals} />
-            <Stack.Screen name="AIAssistant" component={AssistantScreen} />
-            <Stack.Screen name="Search" component={SearchScreen} />
-            <Stack.Screen name="Products" component={ProductsScreen} />
-            <Stack.Screen name="RestaurantsList" component={RestaurantsListScreen} />
-            <Stack.Screen name="RestaurantDetail" component={RestaurantDetailScreen} />
-            <Stack.Screen name="FoodOfDifferentCategories" component={FoodOfDifferentCategoriesScreen} />
-            <Stack.Screen name="OfferDetail" component={OfferDetailScreen} />
-            <Stack.Screen name="SelectDeliveryAddress" component={SelectDeliveryAddressScreen} />
-            <Stack.Screen name="AddNewAddress" component={AddNewAddressScreen} />
-            <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen} />
-            <Stack.Screen name="OrderPlaceInfo" component={OrderPlacedInfoScreen} />
-            <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
-            <Stack.Screen name="TrackOrder" component={TrackOrderScreen} />
-            <Stack.Screen name="Message" component={MessageScreen} />
-            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-            <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
-            <Stack.Screen name="AddNewPaymentMethod" component={AddNewPaymentMathodScreen} />
-            <Stack.Screen name="Address" component={AddressScreen} />
-            <Stack.Screen name="ShareAndEarn" component={ShareAndEarnScreen} />
-            <Stack.Screen name="Notifications" component={NotificationsScreen} />
-            <Stack.Screen name="Favorites" component={FavoritesScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-          </>
-      }
+        <Stack.Screen name="Splash" component={SplashScreen} options={{ ...TransitionPresets.DefaultTransition }} />
+        <Stack.Screen name="Signin" component={SigninScreen} options={{ ...TransitionPresets.DefaultTransition }} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+    :
+    <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+      ...TransitionPresets.SlideFromRightIOS,
+    }}
+    >
+      <Stack.Screen name="BottomTabBar" component={BottomTabBarScreen} options={{ ...TransitionPresets.DefaultTransition }} />
+      <Stack.Screen name="Verification" component={VerificationScreen} />
+      <Stack.Screen name="Personals" component={Personals} />
+      <Stack.Screen name="AIAssistant" component={AssistantScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="Products" component={ProductsScreen} />
+      <Stack.Screen name="RestaurantsList" component={RestaurantsListScreen} />
+      <Stack.Screen name="RestaurantDetail" component={RestaurantDetailScreen} />
+      <Stack.Screen name="FoodOfDifferentCategories" component={FoodOfDifferentCategoriesScreen} />
+      <Stack.Screen name="OfferDetail" component={OfferDetailScreen} />
+      <Stack.Screen name="SelectDeliveryAddress" component={SelectDeliveryAddressScreen} />
+      <Stack.Screen name="AddNewAddress" component={AddNewAddressScreen} />
+      <Stack.Screen name="SelectPaymentMethod" component={SelectPaymentMethodScreen} />
+      <Stack.Screen name="OrderPlaceInfo" component={OrderPlacedInfoScreen} />
+      <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
+      <Stack.Screen name="TrackOrder" component={TrackOrderScreen} />
+      <Stack.Screen name="Message" component={MessageScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} />
+      <Stack.Screen name="AddNewPaymentMethod" component={AddNewPaymentMathodScreen} />
+      <Stack.Screen name="Address" component={AddressScreen} />
+      <Stack.Screen name="ShareAndEarn" component={ShareAndEarnScreen} />
+      <Stack.Screen name="Notifications" component={NotificationsScreen} />
+      <Stack.Screen name="Favorites" component={FavoritesScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   )
 };
