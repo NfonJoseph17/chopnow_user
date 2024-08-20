@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, TouchableOpacity, FlatList, Image, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, CommonStyles } from "../../constants/styles";
 import { MaterialIcons } from '@expo/vector-icons';
 import MyStatusBar from "../../components/myStatusBar";
 import { httpsCallable } from "firebase/functions";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
+import { functions } from "../../App";
 
 const paymentMethodsList = [
   {
@@ -34,11 +35,11 @@ const SelectPaymentMethodScreen = ({ navigation, route }) => {
       console.lot('An error occured while getting payment methods: ', error.message);
     }
   };
-
-  console.log('Payment Methods : ', paymentMethods)
-  useFocusEffect(() => {
+  
+  
+  useFocusEffect(useCallback(() => {
     getAndSetPaymentMethods()
-  }, [])
+  }, []));
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <MyStatusBar />

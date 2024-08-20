@@ -24,7 +24,7 @@ const addressesList = [
 const SelectDeliveryAddressScreen = ({ navigation, route }) => {
   const [selectedAddressId, setselectedAddressId] = useState(null);
   const [addresses, setAddresses] = useState([]);
-  
+  const payable = route.params.payable;
 
   const onProceedToPaymentPress = async () => {
     try {
@@ -35,7 +35,7 @@ const SelectDeliveryAddressScreen = ({ navigation, route }) => {
       
       const placeOrders = httpsCallable(functions, 'placeOrders');
       const result = await placeOrders({carted:cartedWithAddress});
-      navigation.push('SelectPaymentMethod', {orders:result.data.orders});
+      navigation.push('SelectPaymentMethod', {orders:result.data.orders, payable});
       
     } catch (error) {
       console.log('An error occured while proceeding to payments: ', error.message)
@@ -99,7 +99,7 @@ const SelectDeliveryAddressScreen = ({ navigation, route }) => {
           Amount Payable
         </Text>
         <Text style={{ ...Fonts.blackColor18SemiBold }}>
-          4500.00 XAF
+          {payable.amount.toFixed(2)} {payable.currency}
         </Text>
       </View>
     )

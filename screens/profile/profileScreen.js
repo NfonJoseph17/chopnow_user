@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Dimensions,
@@ -12,13 +12,24 @@ import {
 import { Colors, Fonts, Sizes,CommonStyles } from "../../constants/styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import Dialog from "react-native-dialog";
+import { auth } from "../../App";
+import { AuthContext } from "../../contexts/AuthContexts";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
 const ProfileScreen = ({ navigation, changeIndex }) => {
 
   const [showLogoutDialog, setshowLogoutDialog] = useState(false);
+  const setUser = useContext(AuthContext)?.setUser;
 
+  const onLogOut = async () => {
+    await auth.signOut();
+    await AsyncStorage.removeItem('currentUser')
+    setshowLogoutDialog(false);
+    if(setUser) setUser(null);
+
+  }
   return (
     <View style={{ flex: 1, backgroundColor: Colors.bodyBackColor }}>
       <View style={{ flex: 1 }}>
@@ -64,10 +75,7 @@ const ProfileScreen = ({ navigation, changeIndex }) => {
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.6}
-              onPress={() => {
-                setshowLogoutDialog(false);
-                navigation.push("Splash");
-              }}
+              onPress={onLogOut}
               style={styles.logoutButtonStyle}
             >
               <Text style={{ ...Fonts.whiteColor15SemiBold }}>Logout</Text>
