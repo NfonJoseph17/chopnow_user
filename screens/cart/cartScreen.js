@@ -12,7 +12,11 @@ const sizesList = [
 
 const CartScreen = ({ navigation }) => {
   const [cartContents, setCartContents] = useState([]);
-  
+  const totalPrice = cartContents.map(item => item.quantity*item.items[0].price).reduce((total, price) => total + price, 0);
+    // const tax = 2.5;
+  const extraCharges = cartContents.flatMap(item => item.extraFees).reduce((acc, extra) => acc+extra.charge, 0);
+  const payableAmount = (totalPrice + extraCharges)
+
   // const [state, setState] = useState({
   //   showSizeOptions: true,
   //   currentOptionsId: null,
@@ -27,7 +31,11 @@ const CartScreen = ({ navigation }) => {
 
   const onCheckoutPress = () => {
     const cartedItems = cartContents.map(({id, quantity}) => ({id, quantity}));
-    navigation.push('SelectDeliveryAddress', {carted:cartedItems})
+    navigation.push('SelectDeliveryAddress',
+      {carted:cartedItems,
+        payable:{amount:payableAmount, currency:cartContents.at(0)?.items[0].currency}
+      }
+    )
   }
 
   const getAndSetCartContents = async () => {
@@ -63,11 +71,7 @@ const CartScreen = ({ navigation }) => {
   )
 
   function totalInfo() {
-    const totalPrice = cartContents.map(item => item.quantity*item.items[0].price).reduce((total, price) => total + price, 0);
-    // const tax = 2.5;
-    const deliveryCharge = 500;
-    const payableAmount = (totalPrice + deliveryCharge)
-
+    
     return (
       <View style={styles.totalInfoWrapStyle}>
         <View style={styles.subTotalWrapStyle}>
@@ -78,32 +82,36 @@ const CartScreen = ({ navigation }) => {
             {totalPrice.toFixed(1)}{` XAF`}
           </Text>
         </View>
-        <View style={{ padding: Sizes.fixPadding }}>
-          {/* <View style={styles.totalDetailWrapStyle}>
-              <Text style={{ ...Fonts.blackColor15Medium }}>
-                  Service Tax
-              </Text>
-              <Text>
-                  {`$`}
-              </Text>
-          </View> */}
-          <View style={{ paddingVertical: Sizes.fixPadding, ...styles.totalDetailWrapStyle }}>
-            <Text style={{ ...Fonts.blackColor15Medium }}>
-              Delivery Charge
-            </Text>
-            <Text>
-              {deliveryCharge}{` XAF`}
-            </Text>
-          </View>
-          <View style={styles.totalDetailWrapStyle}>
-            <Text style={{ ...Fonts.primaryColor15SemiBold }}>
-              Amount Payable
-            </Text>
-            <Text style={{ ...Fonts.primaryColor15SemiBold }}>
-              {payableAmount.toFixed(1)}{` XAF`}
-            </Text>
-          </View>
-        </View>
+        {
+          cartContents.flatMap(item => item.extraFees).map((fee, index) => (
+            <View key={fee.feeId+index} style={{ padding: Sizes.fixPadding }}>
+              {/* <View style={styles.totalDetailWrapStyle}>
+                  <Text style={{ ...Fonts.blackColor15Medium }}>
+                      Service Tax
+                  </Text>
+                  <Text>
+                      {`$`}
+                  </Text>
+              </View> */}
+              <View style={{ paddingVertical: Sizes.fixPadding, ...styles.totalDetailWrapStyle }}>
+                <Text style={{ ...Fonts.blackColor15Medium }}>
+                  {fee.name}
+                </Text>
+                <Text>
+                  {fee.charge} {fee.currency}
+                </Text>
+              </View>
+              <View style={styles.totalDetailWrapStyle}>
+                <Text style={{ ...Fonts.primaryColor15SemiBold }}>
+                  Amount Payable
+                </Text>
+                <Text style={{ ...Fonts.primaryColor15SemiBold }}>
+                  {payableAmount.toFixed(1)}{` XAF`}
+                </Text>
+              </View>
+            </View>
+          ))
+        }
       </View>
     )
   }
